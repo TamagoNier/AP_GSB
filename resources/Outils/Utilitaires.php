@@ -167,7 +167,7 @@ abstract class Utilitaires
             if (!self::estTableauEntiers($tabDate)) {
                 $dateOK = false;
             } else {
-                if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2])) {
+                if (!checkdate(intval($tabDate[1]), intval($tabDate[0]), intval($tabDate[2]))) {
                     $dateOK = false;
                 }
             }
