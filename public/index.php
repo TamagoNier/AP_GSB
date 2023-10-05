@@ -62,15 +62,14 @@ switch ($uc) {
     case 'etatFrais':
         include PATH_CTRLS . 'c_etatFrais.php';
         break;
-    
+    //------
     case 'validerFrais':
         echo 'Redirige vers la page de validation de fiche de frais';
         break;
-    case 'suiviPayement':
+    case 'suiviPaiement':
         echo 'Redirige vers le suivi de payement';
         break;
-    
-    
+    //------
     case 'deconnexion':
         include PATH_CTRLS . 'c_deconnexion.php';
         break;
