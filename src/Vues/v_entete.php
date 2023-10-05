@@ -52,6 +52,8 @@
                                     Accueil
                                 </a>
                             </li>
+                            
+                            
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=gererFrais&action=saisirFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -66,6 +68,9 @@
                             </li>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
+                                
+                                
+                                
                                 <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     Déconnexion

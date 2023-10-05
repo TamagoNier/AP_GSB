@@ -29,12 +29,25 @@ $estConnecte = Utilitaires::estConnecte();
 require PATH_VIEWS . 'v_entete.php';
 
 $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
 if ($uc && !$estConnecte) {
     $uc = 'connexion';
 } elseif (empty($uc)) {
     $uc = 'accueil';
 }
+
+/*
+switch ($pdo->estComptable($_SESSION['idVisiteur'])) {
+        case true :
+            echo $_SESSION['idVisiteur'];
+            echo 'BONJOUR';
+            break;
+        case false :
+            echo $_SESSION['idVisiteur'];
+            echo 'AU REVOIR';
+            break;
+}*/
+
+$isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
 
 switch ($uc) {
     case 'connexion':
@@ -49,6 +62,15 @@ switch ($uc) {
     case 'etatFrais':
         include PATH_CTRLS . 'c_etatFrais.php';
         break;
+    
+    case 'validerFrais':
+        echo 'Redirige vers la page de validation de fiche de frais';
+        break;
+    case 'suiviPayement':
+        echo 'Redirige vers le suivi de payement';
+        break;
+    
+    
     case 'deconnexion':
         include PATH_CTRLS . 'c_deconnexion.php';
         break;
