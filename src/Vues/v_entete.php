@@ -71,13 +71,13 @@ if ($estConnecte) {
         ?>
                                     <li <?php if ($uc == 'validerFrais') { ?>class="active"<?php } ?>>
                                         <a href="index.php?uc=validerFrais&action=validerFrais">
-                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            <span class="glyphicon  glyphicon-ok"></span>
                                             Valider les fiches de frais
                                         </a>
                                     </li>
                                     <li <?php if ($uc == 'suiviPaiement') { ?>class="active"<?php } ?>>
                                         <a href="index.php?uc=suiviPaiement&action=suiviPaiements">
-                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                            <span class="glyphicon glyphicon-euro"></span>
                                             Suivre le paiment des fiches de frais
                                         </a>
                                     </li>

@@ -47,8 +47,6 @@ switch ($pdo->estComptable($_SESSION['idVisiteur'])) {
             break;
 }*/
 
-$isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
-
 switch ($uc) {
     case 'connexion':
         include PATH_CTRLS . 'c_connexion.php';
