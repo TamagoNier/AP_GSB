@@ -20,9 +20,9 @@
 <?php if(!$isComptable) { ?>
 <div class="alert alert-warning" role="alert"><strong>Rappel : </strong>Vos frais sont à déclarer au plus tard le dernier jour du mois 
 	et vos factures acquittées doivent être arrivées aux services comptables au plus tard le 10 du mois suivant la saisie.
-	Les éléments reçus après le 10 seront reportés sur le mois suivant.
+	Les éléments reçus après le 10 seront reportés sur le mois suivant.</div>
 <?php } ?>
-</div>
+
 <div id="accueil">
     <h2>
         Gestion des frais<small> - 
@@ -56,6 +56,7 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-euro"></span>
                             <br>Suivre le paiment des fiches de frais</a>
+                        
                         <?php }else { ?> 
                         <a href="index.php?uc=gererFrais&action=saisirFrais"
                            class="btn btn-success btn-lg" role="button">
