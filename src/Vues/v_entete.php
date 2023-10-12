@@ -26,7 +26,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+        <?php
+        if($estConnecte) {
+            $isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
+            if($isComptable){
+        ?>
         <link href="./styles/bootstrap/bootstrap-comptable.css" rel="stylesheet">
+        <?php }}?>
     </head>
     <body>
         <div class="container">
@@ -53,7 +59,6 @@ if ($estConnecte) {
                                 </li>
 
     <?php
-    $isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
     if (!$isComptable) {
         ?>
                                     <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
