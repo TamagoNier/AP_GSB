@@ -483,7 +483,7 @@ class PdoGsb
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
-    
+    //-------------------------------------------------------------------------------------
     public function estComptable($idVisiteur) :bool{
         $requetePrepare = $this->connexion->prepare(
             'SELECT visiteur.iscomptable FROM visiteur '
@@ -494,4 +494,55 @@ class PdoGsb
         $estcomptable = $requetePrepare->fetch();
         return $estcomptable[0];
     }
+    
+    /**
+     * Retourne la liste des visiteurs
+     * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
+     */
+    public function getVisiteurs(): array
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT visiteur.id AS id, visiteur.nom AS nom, '
+            . 'visiteur.prenom AS prenom '
+            . 'FROM visiteur '
+        );
+        $requetePrepare->execute();
+        $response = $requetePrepare->fetch();
+        if(is_array($response)){
+            return $response;
+        }else{
+            return array();
+        }
+    }
+    
+    /**
+     * Retourne la liste des fiches frais a valider
+     * @return 
+     */
+    public function getFichesFraisAValider(): array
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT fichefrais.idvisiteur AS idvisiteur, fichefrais.mois AS mois, '
+            . 'fichefrais.nbjustificatifs AS nbjusti, '
+            . 'fichefrais.montantvalide AS montantvalide, '
+            . 'fichefrais.datemodif AS datemodif FROM fichefrais '
+            . "WHERE fichefrais.idetat != 'VA'"
+        );
+        $requetePrepare->execute();
+        $lesFiches = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numMois = substr($mois, 4, 2);
+            $lesFiches[] = array(
+                'idvisiteur' => $laLigne['idvisiteur'],
+                'mois' => $numMois,
+                'nbjustificatifs' => $laLigne['nbjusti'],
+                'montantvalide' => $laLigne['montantvalide'],
+                'datemodif' => $laLigne['datemodif']
+            );
+        }
+        return $lesFiches;
+    }
+    
+    
 }
