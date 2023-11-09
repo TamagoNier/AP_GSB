@@ -14,6 +14,7 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  * @link      https://getbootstrap.com/docs/3.3/ Documentation Bootstrap v3
+ * 
  */
 
 ?>

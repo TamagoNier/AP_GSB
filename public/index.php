@@ -29,23 +29,14 @@ $estConnecte = Utilitaires::estConnecte();
 require PATH_VIEWS . 'v_entete.php';
 
 $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
 if ($uc && !$estConnecte) {
     $uc = 'connexion';
 } elseif (empty($uc)) {
     $uc = 'accueil';
 }
 
-/*
-switch ($pdo->estComptable($_SESSION['idVisiteur'])) {
-        case true :
-            echo $_SESSION['idVisiteur'];
-            echo 'BONJOUR';
-            break;
-        case false :
-            echo $_SESSION['idVisiteur'];
-            echo 'AU REVOIR';
-            break;
-}*/
+
 
 switch ($uc) {
     case 'connexion':
@@ -60,17 +51,17 @@ switch ($uc) {
     case 'etatFrais':
         include PATH_CTRLS . 'c_etatFrais.php';
         break;
-    //------
-    case 'validerFrais':
-        include PATH_CTRLS . 'c_validerFrais.php';
+    case 'suivipaiement':
+        include PATH_CTRLS . 'c_suivipaiement.php';
         break;
-    case 'suiviPaiement':
-        include PATH_CTRLS . 'c_suiviPaiement.php';
+    case 'validerfrais':
+        include PATH_CTRLS . 'c_validerfrais.php';
         break;
-    //------
+    
     case 'deconnexion':
         include PATH_CTRLS . 'c_deconnexion.php';
         break;
+    
     default:
         Utilitaires::ajouterErreur('Page non trouvée, veuillez vérifier votre lien...');
         include PATH_VIEWS . 'v_erreurs.php';

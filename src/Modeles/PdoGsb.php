@@ -101,11 +101,11 @@ class PdoGsb
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
-        $response = $requetePrepare->fetch(); 
-        if(!is_array($response)){
-            return array();
-        }else{
+        $response = $requetePrepare->fetch();
+        if(is_array($response)){
             return $response;
+        }else{
+            return array();
         }
     }
 
@@ -484,14 +484,7 @@ class PdoGsb
         $requetePrepare->execute();
     }
     
-    /**
-     * Retourne si le visiteur passé en parametre est un visiteur ou non
-     * 
-     * @param type $idVisiteur est un visiteur
-     * @return bool
-     */
-    public function estComptable($idVisiteur): bool
-    {
+    public function estComptable($idVisiteur) :bool{
         $requetePrepare = $this->connexion->prepare(
             'SELECT visiteur.iscomptable FROM visiteur '
             . 'WHERE visiteur.id = :unIdVisiteur '
