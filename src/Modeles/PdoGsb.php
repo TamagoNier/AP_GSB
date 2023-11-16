@@ -505,19 +505,17 @@ class PdoGsb
             'SELECT visiteur.id AS id, visiteur.nom AS nom, '
             . 'visiteur.prenom AS prenom '
             . 'FROM visiteur '
+            . 'Where iscomptable = False'
         );
         $requetePrepare->execute();
-        $response = $requetePrepare->fetch();
-        if(is_array($response)){
-            return $response;
-        }else{
-            return array();
-        }
+        $response = $requetePrepare->fetchAll();
+        return $response;
+
     }
     
     /**
      * Retourne la liste des fiches frais a valider
-     * @return 
+     * @return uun tableau assossiatif des fiches de frais à valider
      */
     public function getFichesFraisAValider(): array
     {

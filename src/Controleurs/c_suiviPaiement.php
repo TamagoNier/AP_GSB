@@ -22,8 +22,15 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 switch ($action) {
     case 'suivipaiement':
+        $lesVisiteurs = $pdo->getVisiteurs();
         $fichesFraisAValider = $pdo->getFichesFraisAValider();
-        include PATH_VIEWS . 'v_suivipaiement.php';
+        include PATH_VIEWS . 'v_filtreVisiteurMois.php';
+        break;
+    
+    case 'afficheFicheFraisVA':
+        $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $leVisiteur = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
         break;
 }
 
