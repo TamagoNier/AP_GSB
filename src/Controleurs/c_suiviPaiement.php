@@ -28,10 +28,20 @@ switch ($action) {
         break;
     
     case 'afficheTableauFrais':
+        $lesVisiteurs = $pdo->getVisiteurs();
+        $fichesFraisAValider = $pdo->getFichesFraisAValider();
+        include PATH_VIEWS . 'v_filtreVisiteurMois.php';
+        
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $leVisiteur = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $montantValide = $pdo->getMontantValide($leVisiteur,$leMois);
-        include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
+        $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteur,$leMois);
+        if(is_null($montantValide)){
+            include PATH_VIEWS.'v_aucuneFicheFraisVa.php';
+        }
+        else{
+            include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
+        }
         break;
 }
 

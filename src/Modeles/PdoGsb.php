@@ -561,9 +561,32 @@ class PdoGsb
             return $response[0];
         }else{
             return null;
-        }
-        
+        }    
     } 
     
+    /**
+     * Rend la somme des montant non refusées des frais hors forfait
+     * @param type $idVisiteur
+     * @param type $mois
+     * @return int|null
+     */
+    public function getSommeMontantFraisHorsForfait($idVisiteur, $mois) : ?int{
+       $requetePrepare = $this->connexion->prepare(
+            'SELECT SUM(montant) '
+            . 'FROM lignefraishorsforfait '
+            . 'Where mois = :mois AND '
+            . 'idvisiteur = :idVisiteur AND '
+            . 'refuse = False'
+        );
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $response = $requetePrepare->fetch();
+        if($response){
+            return $response[0];
+        }else{
+            return null;
+        }  
+    }
     
 }

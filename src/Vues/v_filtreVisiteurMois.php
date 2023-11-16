@@ -23,6 +23,8 @@
 
 <div class="row">
     
+    <!-- RAJOUTER OPTION DE CHOISIR TOUS LES VISITEURS ET TOUS LES MOIS-->
+    
     <div class="col-md-4">
         <form action="index.php?uc=suivipaiement&action=afficheTableauFrais" 
               method="post" role="form">
