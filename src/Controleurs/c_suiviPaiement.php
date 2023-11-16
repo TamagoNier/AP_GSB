@@ -27,9 +27,10 @@ switch ($action) {
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
         break;
     
-    case 'afficheFicheFraisVA':
+    case 'afficheTableauFrais':
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $leVisiteur = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $montantValide = $pdo->getMontantValide($leVisiteur,$leMois);
         include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
         break;
 }

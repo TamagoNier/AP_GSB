@@ -24,7 +24,7 @@
 <div class="row">
     
     <div class="col-md-4">
-        <form action="index.php?uc=suiviPaiement&action=afficheFicheFraisVA" 
+        <form action="index.php?uc=suivipaiement&action=afficheTableauFrais" 
               method="post" role="form">
             <div class="form-group">
                 <label for="leVisiteur" accesskey="n">Choisir le Visiteur : </label>

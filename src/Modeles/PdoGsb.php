@@ -517,14 +517,13 @@ class PdoGsb
      * Retourne la liste des fiches frais a valider
      * @return uun tableau assossiatif des fiches de frais à valider
      */
-    public function getFichesFraisAValider(): array
+    public function getFichesFraisAValider(): array|bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT fichefrais.idvisiteur AS idvisiteur, fichefrais.mois AS mois, '
             . 'fichefrais.nbjustificatifs AS nbjusti, '
             . 'fichefrais.montantvalide AS montantvalide, '
-            . 'fichefrais.datemodif AS datemodif FROM fichefrais '
-            . "WHERE fichefrais.idetat != 'VA'"
+            . 'fichefrais.datemodif AS datemodif FROM fichefrais'
         );
         $requetePrepare->execute();
         $lesFiches = array();
@@ -541,6 +540,30 @@ class PdoGsb
         }
         return $lesFiches;
     }
+    
+    /*
+     * Retourne le montant valide de la fiche de frais associé à un visiteur et un mois
+     * @return le montant
+     */
+    public function getMontantValide($idVisiteur, $mois): ?string {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT montantvalide '
+            . 'FROM fichefrais '
+            . 'Where mois = :mois AND '
+            . 'idvisiteur = :idVisiteur AND '
+            . 'idetat = "VA"'
+        );
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $response = $requetePrepare->fetch();
+        if($response){
+            return $response[0];
+        }else{
+            return null;
+        }
+        
+    } 
     
     
 }
