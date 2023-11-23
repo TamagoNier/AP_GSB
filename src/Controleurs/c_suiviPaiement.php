@@ -58,10 +58,10 @@ switch ($action) {
             }
         } elseif ($leMois != 'none' && $leVisiteurId != 'none') {
             $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
-            $date = substr($mois['mois'], 0, 4) . '/' . substr($mois['mois'], 4, 2);
-            $total = $montantHorsForfait + $montantValide;
+            $date = substr($leMois, 0, 4) . '/' . substr($leMois, 4, 2);
             $montantValide = $pdo->getMontantValide($leVisiteurId, $leMois);
             $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteurId, $leMois);
+            $total = $montantHorsForfait + $montantValide;
             if (!is_null($montantValide)) {
                 include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
             }
