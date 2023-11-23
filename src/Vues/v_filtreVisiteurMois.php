@@ -31,23 +31,16 @@
             <div class="form-group">
                 <label for="leVisiteur" accesskey="n">Choisir le Visiteur : </label>
                 <select id="leVisiteur" name="leVisiteur" class="form-control">
+                    <option value="null">Choisir...</option>
                     <?php
-                    var_dump($lesVisiteurs);
                     foreach ($lesVisiteurs as $unVisiteur) {
                         $id = $unVisiteur['id'];
                         $nom = $unVisiteur['nom'];
                         $prenom = $unVisiteur['prenom'];
-                        if ($id == $visiteursASelectionner) {
-                            ?>
-                            <option selected value="<?php echo $id ?>">
-                                <?php echo $nom . ' ' . $prenom ?> </option>
-                            <?php
-                        } else {
                             ?>
                             <option value="<?php echo $id ?>">
                                 <?php echo $nom . ' ' . $prenom ?> </option>
                             <?php
-                        }
                     }
                     ?>    
 
@@ -58,25 +51,18 @@
             <div class="form-group">
                 <label for="leMois" accesskey="n">Mois : </label>
                 <select id="leMois" name="leMois" class="form-control">
-                    <?php
+                    <option value="null">Choisir...</option>
+                        <?php
                     $lesMois = $pdo->getLesMoisDisponibles($id);
                     foreach ($lesMois as $unMois) {
                         $mois = $unMois['mois'];
                         $numAnnee = $unMois['numAnnee'];
                         $numMois = $unMois['numMois'];
-                        
-                        if ($mois == $moisASelectionner) {
-                            ?>
-                            <option selected value="<?php echo $mois ?>">
-                                <?php echo $numMois . '/' . $numAnnee ?> </option>
-                            <?php
-                        } else {
                             ?>
                             <option value="<?php echo $mois ?>">
                                 <?php echo $numMois . '/' . $numAnnee ?> </option>
                             <?php
                         }
-                    }
                     ?>    
 
                 </select>

@@ -24,6 +24,7 @@ switch ($action) {
     case 'suivipaiement':
         $lesVisiteurs = $pdo->getVisiteurs();
         $fichesFraisAValider = $pdo->getFichesFraisAValider();
+        $lesMois = $pdo->getLesMoisDisponibles($id);
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
         break;
     
@@ -34,6 +35,8 @@ switch ($action) {
         
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $leVisiteur = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        $nomVisiteur = $pdo->getNomVisiteur($leVisiteur);        
         $montantValide = $pdo->getMontantValide($leVisiteur,$leMois);
         $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteur,$leMois);
         if(is_null($montantValide)){

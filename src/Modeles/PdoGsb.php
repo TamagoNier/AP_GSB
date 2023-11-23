@@ -589,4 +589,25 @@ class PdoGsb
         }  
     }
     
+    /**
+     * Retourne un array avec le nom et prenom du visiteur
+     * @param type $idVisiteur
+     * @return array
+     */
+    public function getNomVisiteur($idVisiteur) :array{
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT nom, prenom '
+            . 'FROM visiteur '
+            . 'Where id = :idVisiteur'
+        );
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $response = $requetePrepare->fetch();
+        if($response){
+            return $response;
+        }else{
+            return null;
+        }  
+    }
+    
 }

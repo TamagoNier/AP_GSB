@@ -40,3 +40,7 @@ a:hover, a:focus {
 .panel.panel-info {
     background-color: orange;
 }
+
+th{
+        background-color: white;
+    }
