@@ -12,6 +12,15 @@
         <tr>
             <th><?php echo $montantValide?>€</th>
             <th><?php echo $montantHorsForfait?>€</th>
-            <th><input type="checkbox" name="formWheelchair" value="Yes" /></th>
+            <th>
+                <form action="index.php?uc=suivipaiement&action=miseEnPaiement" method="post" role="form">  
+                    <!-- données envoyées cachées -->
+                <input type="hidden" name="idVisiteur" value="<?php echo $leVisiteur ?>">
+                <input type="hidden" name="mois" value="<?php echo $leMois; ?>">
+                
+                <input id="ok" type="submit" value="Mettre en Paiement" class="btn btn-success" 
+                   role="button">
+                </form>
+            </th>
     </table>
 </div>
