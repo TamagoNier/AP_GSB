@@ -2,16 +2,18 @@
 
 <hr>
 <div class="panel panel-info">
-    <div class="panel-heading">Mise en Paiement - <?php echo $nomVisiteur[0]. ' ' . $nomVisiteur[1]?></div>
+    <div class="panel-heading">Mise en Paiement - <?php echo $nomVisiteur[0]. ' ' . $nomVisiteur[1] .' - '. $date?></div>
     <table class="table table-bordered table-responsive">
         <tr>
             <th>Montant Frais Forfait</th>
             <th>Montant Frais Hors Forfait</th>
+            <th>Total</th>
             <th>Mettre en paiement</th>
         </tr>
         <tr>
             <th><?php echo $montantValide?>€</th>
             <th><?php echo $montantHorsForfait?>€</th>
+            <th><?php echo $total?>€</th>
             <th>
                 <form action="index.php?uc=suivipaiement&action=miseEnPaiement" method="post" role="form">  
                     <!-- données envoyées cachées -->

@@ -32,29 +32,42 @@ switch ($action) {
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
 
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $leVisiteur = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $leVisiteurId = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ($leVisiteur == 'none') {
+        if ($leVisiteurId == 'none') {
             foreach ($lesVisiteurs as $visiteur) {
-                $nomVisiteur = $pdo->getNomVisiteur($visiteur);
-                $montantValide = $pdo->getMontantValide($visiteur, $leMois);
-                $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($visiteur, $leMois);
-                if (is_null($montantValide)) {
-                    include PATH_VIEWS . 'v_aucuneFicheFraisVa.php';
-                } else {
+                $nomVisiteur = $pdo->getNomVisiteur($visiteur['id']);
+                $date = substr($leMois, 0, 4) . '/' . substr($leMois, 4, 2);
+                $montantValide = $pdo->getMontantValide($visiteur['id'], $leMois);
+                $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($visiteur['id'], $leMois);
+                $total = $montantHorsForfait + $montantValide;
+                if (!is_null($montantValide)) {
                     include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
                 }
             }
+        } elseif ($leMois == 'none') {
+            foreach ($lesMois as $mois) {
+                $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
+                $date = substr($mois['mois'], 0, 4) . '/' . substr($mois['mois'], 4, 2);
+                $montantValide = $pdo->getMontantValide($leVisiteurId, $mois['mois']);
+                $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteurId, $mois['mois']);
+                $total = $montantHorsForfait + $montantValide;
+                if (!is_null($montantValide)) {
+                    include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
+                }
+            }
+        } elseif ($leMois != 'none' && $leVisiteurId != 'none') {
+            $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
+            $date = substr($mois['mois'], 0, 4) . '/' . substr($mois['mois'], 4, 2);
+            $total = $montantHorsForfait + $montantValide;
+            $montantValide = $pdo->getMontantValide($leVisiteurId, $leMois);
+            $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteurId, $leMois);
+            if (!is_null($montantValide)) {
+                include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
+            }
+        } else {
+            include PATH_VIEWS . 'v_aucuneFicheFraisVa.php';
         }
-
-//        $nomVisiteur = $pdo->getNomVisiteur($leVisiteur);
-//        $montantValide = $pdo->getMontantValide($leVisiteur, $leMois);
-//        $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteur, $leMois);
-//        if (is_null($montantValide)) {
-//            include PATH_VIEWS . 'v_aucuneFicheFraisVa.php';
-//        } else {
-//            include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
-//        }
         break;
     case 'miseEnPaiement':
         $mois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
