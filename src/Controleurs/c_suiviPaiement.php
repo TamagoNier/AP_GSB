@@ -20,7 +20,7 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 //$idVisiteur = $_SESSION['idVisiteur'];
 
 switch ($action) {
-    case 'suivipaiement':
+    case 'suivipaiement': //Affiche le tableau permettant de choisir le visiteur et le mois de la fiche frais 
         $lesVisiteurs = $pdo->getVisiteurs();
         $fichesFraisAValider = $pdo->getFichesFraisAValider();
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
@@ -34,7 +34,7 @@ switch ($action) {
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $leVisiteurId = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ($leVisiteurId == 'none') {
+        if ($leVisiteurId == 'none') { //Si aucun visiteur n'est selectionné, affiche toutes les fiches frais pour le mois donné
             foreach ($lesVisiteurs as $visiteur) {
                 $nomVisiteur = $pdo->getNomVisiteur($visiteur['id']);
                 $date = substr($leMois, 0, 4) . '/' . substr($leMois, 4, 2);
@@ -45,7 +45,7 @@ switch ($action) {
                     include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
                 }
             }
-        } elseif ($leMois == 'none') {
+        } elseif ($leMois == 'none') { //Si aucun mois n'est séléctionné, affiche toutes les fiches frais pour un visiteur donné
             foreach ($lesMois as $mois) {
                 $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
                 $date = substr($mois['mois'], 0, 4) . '/' . substr($mois['mois'], 4, 2);
@@ -56,7 +56,7 @@ switch ($action) {
                     include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
                 }
             }
-        } elseif ($leMois != 'none' && $leVisiteurId != 'none') {
+        } elseif ($leMois != 'none' && $leVisiteurId != 'none') { //Affiche la fiche frais d'un visiteur donné à un mois donné
             $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
             $date = substr($leMois, 0, 4) . '/' . substr($leMois, 4, 2);
             $montantValide = $pdo->getMontantValide($leVisiteurId, $leMois);
@@ -65,9 +65,8 @@ switch ($action) {
             if (!is_null($montantValide)) {
                 include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
             }
-        } else {
-            include PATH_VIEWS . 'v_aucuneFicheFraisVa.php';
-        }
+        } 
+        include PATH_VIEWS . 'v_finFicheFraisVa.php';
         break;
     case 'miseEnPaiement':
         $mois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
