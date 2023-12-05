@@ -23,118 +23,53 @@
 
 <div class="row">
     
+    <!-- RAJOUTER OPTION DE CHOISIR TOUS LES VISITEURS ET TOUS LES MOIS-->
+    
     <div class="col-md-4">
-        <form action="index.php?uc=etatFrais&action=voirEtatFrais" 
+        <form action="index.php?uc=validerfrais&action=afficheFrais" 
               method="post" role="form">
             <div class="form-group">
-                <label for="lstMois" accesskey="n">Choisir le visiteur : </label>
-                <select id="lstMois" name="lstMois" class="form-control">
+                <label for="leVisiteur" accesskey="n">Choisir le Visiteur : </label>
+                <select id="leVisiteur" name="leVisiteur" class="form-control">
+                    <option value="none">Choisir...</option>
                     <?php
-                    foreach ($visiteur as $idVisiteur) {
-                        
-                        if ($visiteur == $VisiteurASelectionner) {
+                    foreach ($lesVisiteurs as $unVisiteur) {
+                        $id = $unVisiteur['id'];
+                        $nom = $unVisiteur['nom'];
+                        $prenom = $unVisiteur['prenom'];
                             ?>
-                            <option selected value="<?php echo $visiteur ?>">
-                                <?php echo $nomvisiteur . $prenomvisiteur ?> </option>
+                            <option value="<?php echo $id ?>">
+                                <?php echo $nom . ' ' . $prenom ?> </option>
                             <?php
-                        } else {
-                            
-                        }
                     }
                     ?>    
 
                 </select>
             </div>
 
+
             <div class="form-group">
-                <label for="lstMois" accesskey="n">Mois : </label>
-                <select id="lstMois" name="lstMois" class="form-control">
-                    <?php
+                <label for="leMois" accesskey="n">Mois : </label>
+                <select id="leMois" name="leMois" class="form-control">
+                    <option value="none">Choisir...</option>
+                        <?php
+                    $lesMois = $pdo->getLesMoisDisponibles($id);
                     foreach ($lesMois as $unMois) {
                         $mois = $unMois['mois'];
                         $numAnnee = $unMois['numAnnee'];
                         $numMois = $unMois['numMois'];
-                        if ($mois == $moisASelectionner) {
-                            ?>
-                            <option selected value="<?php echo $mois ?>">
-                                <?php echo $numMois . '/' . $numAnnee ?> </option>
-                            <?php
-                        } else {
                             ?>
                             <option value="<?php echo $mois ?>">
                                 <?php echo $numMois . '/' . $numAnnee ?> </option>
                             <?php
                         }
-                    }
                     ?>    
 
                 </select>
             </div>
-           
+            
+            <input id="ok" type="submit" value="Valider" class="btn btn-success" 
+                   role="button">
         </form>
-        
     </div>
-    
 </div>
-
-<div class="panel panel-info">
-        <div class="panel-heading">Descriptif des éléments hors forfait</div>
-        <table class="table table-bordered table-responsive">
-            <thead>
-                <tr>
-                    <th class="date">Date</th>
-                    <th class="libelle">Libellé</th>  
-                    <th class="montant">Montant</th>  
-                    <th class="action">&nbsp;</th> 
-                </tr>
-            </thead>  
-            <tbody>
-            <?php
-            foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-                $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-                $date = $unFraisHorsForfait['date'];
-                $montant = $unFraisHorsForfait['montant'];
-                $id = $unFraisHorsForfait['id']; ?>           
-                <tr>
-                    <td> <?php echo $date ?></td>
-                    <td> <?php echo $libelle ?></td>
-                    <td><?php echo $montant ?></td>
-                    <td>
-                        <button class="btn btn-success" type="submit">Corriger</button>
-                <button class="btn btn-danger" type="reset">Réinitialiser</button> 
-                        
-                    </td>
-                </tr>
-                <?php
-            }
-            ?>
-            </tbody>  
-        </table>
-    </div>
-
-
-<!--
-<div class="panel panel-info">
-    <div class="panel-heading" style="color: white; background-color: #df6900 ">Descriptif des éléments hors forfait 
-    <table class="table table-bordered table-responsive" style="color : black; background-color: white;">
-        <tr>
-            <th class="date">Date</th>
-            <th class="libelle">Libellé</th>
-            <th class='montant'>Montant</th>                
-        </tr>
-        <?php
-        foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-            $date = $unFraisHorsForfait['date'];
-            $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-            $montant = $unFraisHorsForfait['montant']; ?>
-            <tr>
-                <td><?php echo $date ?></td>
-                <td><?php echo $libelle ?></td>
-                <td><?php echo $montant ?></td>
-            </tr>
-            <?php
-        }
-        ?>
-    </table>
-</div> 
--->
