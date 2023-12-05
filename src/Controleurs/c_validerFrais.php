@@ -30,11 +30,10 @@ switch ($action) {
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteurId, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($leVisiteurId, $leMois);
         
-        require PATH_VIEWS . 'v_elementsForfait.php';
+        include PATH_VIEWS . 'v_elementsForfait.php';
+        include PATH_VIEWS . 'v_elementsHorsForfait.php';
         break;
 }
 $lesVisiteurs = $pdo->getVisiteurs();
-$fichesFraisAValider = $pdo->getFichesFraisAValider();
-
-include PATH_VIEWS . 'v_validerfrais.php';
+require PATH_VIEWS . 'v_validerfrais.php';
 
