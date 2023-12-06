@@ -21,10 +21,11 @@
     <h3>Eléments forfaitisés</h3>
     <div class="col-md-4">
         <form method="post" 
-              action="index.php?uc=validerfrais&action=*" 
+              action="index.php?uc=validerfrais&action=majFraisForfait" 
               role="form">
             <fieldset>       
                 <?php
+                
                 foreach ($lesFraisForfait as $unFrais) {
                     $idFrais = $unFrais['idfrais'];
                     $libelle = htmlspecialchars($unFrais['libelle']);

@@ -18,22 +18,31 @@
 use Outils\Utilitaires;
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$lesVisiteurs = $pdo->getVisiteurs();
+require PATH_VIEWS . 'v_validerFrais.php';
 switch ($action) {
     case 'afficheFrais':
-        $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $leVisiteurId = filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $_SESSION['leMois'] = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $_SESSION['leVisiteurId']= filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
-        if ($pdo->estPremierFraisMois($leVisiteurId, $leMois)) {
-            $pdo->creeNouvellesLignesFrais($leVisiteurId, $leMois);
+        if ($pdo->estPremierFraisMois($_SESSION['leVisiteurId'], $_SESSION['leMois'])) {
+            $pdo->creeNouvellesLignesFrais($_SESSION['leVisiteurId'], $_SESSION['leMois']);
         }
         
-        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteurId, $leMois);
-        $lesFraisForfait = $pdo->getLesFraisForfait($leVisiteurId, $leMois);
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+        $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+        $nbJustificatifs = $pdo->getNbjustificatifs($_SESSION['leVisiteurId'], $_SESSION['leMois']);
         
         include PATH_VIEWS . 'v_elementsForfait.php';
         include PATH_VIEWS . 'v_elementsHorsForfait.php';
         break;
+    case 'majFraisForfait' :
+        $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+        if (Utilitaires::lesQteFraisValides($lesFrais)) {
+            $pdo->majFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois'], $lesFrais);
+        } else {
+            Utilitaires::ajouterErreur('Les valeurs des frais doivent être numériques');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
+        break;
 }
-$lesVisiteurs = $pdo->getVisiteurs();
-require PATH_VIEWS . 'v_validerfrais.php';
-

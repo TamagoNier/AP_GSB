@@ -23,10 +23,8 @@
                     <td> <?php echo $libelle ?></td>
                     <td><?php echo $montant ?></td>
                     <td>
-                        <a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>" 
-                           onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">
-                            Supprimer ce frais
-                        </a>
+                        <button class="btn btn-success" type="submit">Corriger</button>
+                        <button class="btn btn-danger" type="reset">Réinitialiser</button>
                     </td>
                 </tr>
                 <?php
@@ -35,4 +33,18 @@
             </tbody>  
         </table>
     </div>
+    <form method="post" 
+              action="index.php?uc=validerfrais&action=majNbJustificatifs" 
+              role="form">
+    <div class="form-group">
+                        <label for="nbJustificatifs">Nombre de justificatifs : </label>
+                        <input type="text" id="nbJustificatifs" 
+                               name="nbJustificatif"
+                               size ="5cm"
+                               value="<?php echo $nbJustificatifs ?>" 
+                               class="form-control">
+                    </div>
+        <button class="btn btn-success" type="submit">Valider</button>
+        <button class="btn btn-danger" type="reset">Réinitialiser</button>
+    </form>
 </div>
