@@ -18,9 +18,7 @@
 
 ?>
         <link href="./styles/bootstrap/bootstrap-comptable.css" rel="stylesheet" type="text/css"/>
-
 <hr>
-
 <div class="row">
     
     <!-- RAJOUTER OPTION DE CHOISIR TOUS LES VISITEURS ET TOUS LES MOIS-->

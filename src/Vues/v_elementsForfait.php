@@ -17,8 +17,9 @@
  */
 
 ?>
+<h1>Valider la fiche de frais</h1>
+<h3>Eléments forfaitisés</h3>
 <div class="row">    
-    <h3>Eléments forfaitisés</h3>
     <div class="col-md-4">
         <form method="post" 
               action="index.php?uc=validerfrais&action=majFraisForfait" 
