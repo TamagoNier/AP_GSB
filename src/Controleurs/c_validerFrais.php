@@ -25,7 +25,12 @@ switch ($action) {
         $_SESSION['leMois'] = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $_SESSION['leVisiteurId']= filter_input(INPUT_POST, 'leVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
-        if ($pdo->estPremierFraisMois($_SESSION['leVisiteurId'], $_SESSION['leMois'])) {
+        if($_SESSION['leMois'] == 'none' || $_SESSION['leVisiteurId'] == 'none'){
+            include PATH_VIEWS.'v_validerFraisErreur.php';
+            break;
+        }
+        
+        elseif ($pdo->estPremierFraisMois($_SESSION['leVisiteurId'], $_SESSION['leMois'])) {
             $pdo->creeNouvellesLignesFrais($_SESSION['leVisiteurId'], $_SESSION['leMois']);
         }
         
