@@ -607,6 +607,12 @@ class PdoGsb {
         }
     }
 
+    /**
+     * Passe la ligne hors forfait en refusé
+     * 
+     * @param type $idVisiteur
+     * @param type $mois
+     */
     public function ligneFraisHorsForfaitRefuse($idVisiteur, $mois) {
         $requetePrepare = $this->connexion->prepare(
                 'UPDATE lignehorsforfait '
