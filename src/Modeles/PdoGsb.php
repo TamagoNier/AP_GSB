@@ -103,6 +103,13 @@ class PdoGsb {
         }
     }
 
+    /**
+     * Retourne le hash du mot de passe de l'utilisateur si 
+     * ce dernier est present dans la bdd
+     * 
+     * @param type $login
+     * @return type
+     */
     public function getMdpVisiteur($login) {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT mdp '
