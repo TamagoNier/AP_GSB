@@ -72,7 +72,7 @@ switch ($action) {
         $mois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $pdo->majEtatFicheFrais($idVisiteur, $mois, 'MP');
-        include PATH_VIEWS . 'v_miseEnPaiement.php';
+        include PATH_VIEWS . 'v_transactionReussie.php';
         break;
 }
 

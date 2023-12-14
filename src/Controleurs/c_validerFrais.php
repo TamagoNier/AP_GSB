@@ -45,9 +45,19 @@ switch ($action) {
         $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         if (Utilitaires::lesQteFraisValides($lesFrais)) {
             $pdo->majFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois'], $lesFrais);
+            include PATH_VIEWS.'v_transactionReussie.php';
         } else {
             Utilitaires::ajouterErreur('Les valeurs des frais doivent être numériques');
             include PATH_VIEWS . 'v_erreurs.php';
         }
+        break;
+    case 'majHorsFraisForfait':
+        $date = filter_input(INPUT_POST, 'date', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $libelle = filter_input(INPUT_POST, 'libelle', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $montant = filter_input(INPUT_POST, 'montant', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        var_dump($date);
+        var_dump($libelle);
+        var_dump($montant);
+        include PATH_VIEWS.'v_transactionReussie.php';
         break;
 }

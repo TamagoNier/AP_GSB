@@ -12,7 +12,9 @@
                 </tr>
             </thead>  
             <tbody>
-            <form>
+            <form method="post" 
+              action="index.php?uc=validerfrais&action=majHorsFraisForfait" 
+              role="form">
             <?php
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
                 $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
@@ -20,19 +22,20 @@
                 $montant = $unFraisHorsForfait['montant'];
                 $id = $unFraisHorsForfait['id']; ?>           
                 <tr>
-                    <td><input type="text" id="idFrais" 
+                    <td><input type="text" id="date" 
+                               name="date"
                                size="10" 
                                value="<?php echo $date ?>" 
                                class="form-control">
                     </td>
-                    <td><input type="text" id="idFrais" 
-                               name="lesFrais[<?php echo $idFrais ?>]"
+                    <td><input type="text" id="libelle" 
+                               name="libelle"
                                size="10"
                                value="<?php echo $libelle ?>" 
                                class="form-control">
                     </td>
-                    <td><input type="text" id="idFrais" 
-                               name="lesFrais[<?php echo $idFrais ?>]"
+                    <td><input type="text" id="montant" 
+                               name="montant"
                                size="10"
                                value="<?php echo $montant ?>" 
                                class="form-control">
