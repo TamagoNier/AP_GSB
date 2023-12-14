@@ -22,7 +22,7 @@
                 $montant = $unFraisHorsForfait['montant'];
                 $id = $unFraisHorsForfait['id']; ?>           
                 <tr>
-                    <td><input type="text" id="date" 
+                    <td><input type="date" id="date" 
                                name="date"
                                size="10" 
                                value="<?php echo $date ?>" 

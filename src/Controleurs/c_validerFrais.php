@@ -53,11 +53,12 @@ switch ($action) {
         break;
     case 'majHorsFraisForfait':
         $id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $date = filter_input(INPUT_POST, 'date', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $date = Utilitaires::dateAnglaisVersFrancais(filter_input(INPUT_POST, 'date', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $libelle = filter_input(INPUT_POST, 'libelle', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $montant = filter_input(INPUT_POST, 'montant', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         //var_dump($date);
         try {
+            $pdo->majFraisHF($_SESSION['leVisiteurId'], $_SESSION['leMois'], $date, $libelle, $montant, $id);
             include PATH_VIEWS.'v_transactionReussie.php';
         }
         catch (Exception $ex) {
