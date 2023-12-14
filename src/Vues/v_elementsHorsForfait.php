@@ -12,6 +12,7 @@
                 </tr>
             </thead>  
             <tbody>
+            <form>
             <?php
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
                 $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
@@ -19,9 +20,23 @@
                 $montant = $unFraisHorsForfait['montant'];
                 $id = $unFraisHorsForfait['id']; ?>           
                 <tr>
-                    <td> <?php echo $date ?></td>
-                    <td> <?php echo $libelle ?></td>
-                    <td><?php echo $montant ?></td>
+                    <td><input type="text" id="idFrais" 
+                               size="10" 
+                               value="<?php echo $date ?>" 
+                               class="form-control">
+                    </td>
+                    <td><input type="text" id="idFrais" 
+                               name="lesFrais[<?php echo $idFrais ?>]"
+                               size="10"
+                               value="<?php echo $libelle ?>" 
+                               class="form-control">
+                    </td>
+                    <td><input type="text" id="idFrais" 
+                               name="lesFrais[<?php echo $idFrais ?>]"
+                               size="10"
+                               value="<?php echo $montant ?>" 
+                               class="form-control">
+                    </td>
                     <td>
                         <button class="btn btn-success" type="submit">Corriger</button>
                         <button class="btn btn-danger" type="reset">Réinitialiser</button>
@@ -30,6 +45,7 @@
                 <?php
             }
             ?>
+            </form>
             </tbody>  
         </table>
     </div>
