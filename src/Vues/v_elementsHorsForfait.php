@@ -18,7 +18,7 @@
             <?php
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
                 $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-                $date = $unFraisHorsForfait['date'];
+                $date = \Outils\Utilitaires::dateFrancaisVersAnglais($unFraisHorsForfait['date']);
                 $montant = $unFraisHorsForfait['montant'];
                 $id = $unFraisHorsForfait['id']; ?>           
                 <tr>
@@ -40,6 +40,7 @@
                                value="<?php echo $montant ?>" 
                                class="form-control">
                     </td>
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
                     <td>
                         <button class="btn btn-success" type="submit">Corriger</button>
                         <button class="btn btn-danger" type="reset">Réinitialiser</button>

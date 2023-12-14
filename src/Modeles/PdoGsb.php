@@ -624,4 +624,35 @@ class PdoGsb {
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Met à jour la table ligneFraisHorsForfait
+     * Met à jour la table ligneFraisHorsForfait pour un visiteur et
+     * un mois donné en enregistrant les nouveaux montants
+     * 
+     * @param type $idVisiteur
+     * @param type $mois
+     * @param type $date
+     * @param type $libelle
+     * @param type $montant
+     * @param type $id
+     */
+    public function majFraisHF($idVisiteur, $mois, $date, $libelle, $montant, $id) {
+        $requetePrepare = $this->connexion->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.date = :date, '
+                . 'lignefraishorsforfait.libelle = :libelle, '
+                . 'lignefraishorsforfait.montant = :montant '
+                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                . 'AND lignefraishorsforfait.mois = :unMois '
+                . 'AND lignefraishorsforfait.id = :id'
+        );
+        $requetePrepare->bindParam(':date', $date, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':libelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':montant', $montant, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':id', $id, PDO::PARAM_INT);
+        $requetePrepare->execute();
+    }
 }

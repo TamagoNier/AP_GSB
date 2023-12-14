@@ -52,12 +52,17 @@ switch ($action) {
         }
         break;
     case 'majHorsFraisForfait':
+        $id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $date = filter_input(INPUT_POST, 'date', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $libelle = filter_input(INPUT_POST, 'libelle', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $montant = filter_input(INPUT_POST, 'montant', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        var_dump($date);
-        var_dump($libelle);
-        var_dump($montant);
-        include PATH_VIEWS.'v_transactionReussie.php';
+        //var_dump($date);
+        try {
+            include PATH_VIEWS.'v_transactionReussie.php';
+        }
+        catch (Exception $ex) {
+            Utilitaires::ajouterErreur('Données non valide');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
         break;
 }
