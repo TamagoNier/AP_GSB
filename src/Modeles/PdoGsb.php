@@ -637,15 +637,13 @@ class PdoGsb {
      * @param type $montant
      * @param type $id
      */
-    public function majFraisHF($idVisiteur, $mois, $date, $libelle, $montant, $id) {
+    public function majFraisHF($date, $libelle, $montant, $id) {
         $requetePrepare = $this->connexion->prepare(
                 'UPDATE lignefraishorsforfait '
                 . 'SET lignefraishorsforfait.date = :date, '
                 . 'lignefraishorsforfait.libelle = :libelle, '
                 . 'lignefraishorsforfait.montant = :montant '
-                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
-                . 'AND lignefraishorsforfait.mois = :unMois '
-                . 'AND lignefraishorsforfait.id = :id'
+                . 'WHERE lignefraishorsforfait.id = :id'
         );
         $requetePrepare->bindParam(':date', $date, PDO::PARAM_STR);
         $requetePrepare->bindParam(':libelle', $libelle, PDO::PARAM_STR);
