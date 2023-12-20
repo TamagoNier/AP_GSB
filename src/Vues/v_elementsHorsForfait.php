@@ -2,7 +2,7 @@
 <div class="row">
     <div class="panel panel-info">
         <div class="panel-heading">Descriptif des éléments hors forfait</div>
-        <form method="post" action="index.php?uc=validerfrais&action=majHorsFraisForfait" role="form">
+        <form id="validationForm" method="post" action="index.php?uc=validerfrais&action=majHorsFraisForfait" role="form">
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr>
@@ -28,7 +28,8 @@
                                 <input type="hidden" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][id]" value="<?php echo $unFraisHorsForfait['id'] ?>">
                                 <button class="btn btn-success" type="submit">Corriger</button>
                                 <button class="btn btn-danger" type="reset">Réinitialiser</button>
-                                <button class="btn btn-warning" type="submit">Refuser</button>                            </td>
+                                <button class="btn btn-warning" type="button" onclick="refuser()">Refuser</button>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>  
@@ -51,3 +52,12 @@
         <button class="btn btn-danger" type="reset">Réinitialiser</button>
     </form>
 </div>
+<script>
+    function refuser() {
+        // Set the form action URL for the "refuser" case
+        document.getElementById('validationForm').action = 'index.php?uc=validerfrais&action=refuser';
+        // Submit the form
+        document.getElementById('validationForm').submit();
+    }
+</script>
+

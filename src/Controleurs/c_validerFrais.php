@@ -78,4 +78,8 @@ switch ($action) {
             include PATH_VIEWS . 'v_erreurs.php';
         }
         break;
+    
+    case 'refuser' :
+        echo 'ça marche mon poto de la street';
+        break;
 }
