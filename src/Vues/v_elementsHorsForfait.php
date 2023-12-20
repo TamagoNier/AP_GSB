@@ -40,8 +40,8 @@
           action="index.php?uc=validerfrais&action=majNbJustificatifs" 
           role="form">
         <div class="form-group">
-            <label for="nbJustificatifs">Nombre de justificatifs : </label>
-            <input type="text" id="nbJustificatifs" 
+            <label for="nbJustificatif">Nombre de justificatifs : </label>
+            <input type="text" id="nbJustificatif" 
                    name="nbJustificatif"
                    size ="5cm"
                    value="<?php echo $nbJustificatifs ?>" 

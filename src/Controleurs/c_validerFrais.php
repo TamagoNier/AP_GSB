@@ -65,10 +65,17 @@ switch ($action) {
                 }
             }
         }
-        include PATH_VIEWS.'v_transactionReussie.php';
+        include PATH_VIEWS . 'v_transactionReussie.php';
         break;
-    
-     case 'majNbJustificatifs' :
-         
+
+    case 'majNbJustificatifs' :
+        $nbJustif = filter_input(INPUT_POST, 'nbJustificatif', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        try {
+            $pdo->majNbJustificatifs($_SESSION['leVisiteurId'], $_SESSION['leMois'], $nbJustif);
+            include PATH_VIEWS . 'v_transactionReussie.php';
+        } catch (Exception $ex) {
+            Utilitaires::ajouterErreur('Erreur avec le nombre de jutificatifs');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
         break;
 }
