@@ -50,7 +50,7 @@ switch ($action) {
         break;
     case 'majHorsFraisForfait':
         $fraisHF = filter_input(INPUT_POST, 'lesFraisHF', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
-        var_dump($fraisHF);
+        //var_dump($fraisHF);
         if (isset($fraisHF) && is_array($fraisHF)) {
             foreach ($fraisHF as $id => $data) {
                 $date = $data['date'];
@@ -65,5 +65,10 @@ switch ($action) {
                 }
             }
         }
+        include PATH_VIEWS.'v_transactionReussie.php';
+        break;
+    
+     case 'majNbJustificatifs' :
+         
         break;
 }

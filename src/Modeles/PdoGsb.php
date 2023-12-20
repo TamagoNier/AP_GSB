@@ -624,7 +624,7 @@ class PdoGsb {
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
-    
+
     /**
      * Met à jour la table ligneFraisHorsForfait
      * Met à jour la table ligneFraisHorsForfait pour un visiteur et
@@ -645,11 +645,10 @@ class PdoGsb {
                 . 'lignefraishorsforfait.montant = :montant '
                 . 'WHERE lignefraishorsforfait.id = :id'
         );
+
         $requetePrepare->bindParam(':date', $date, PDO::PARAM_STR);
         $requetePrepare->bindParam(':libelle', $libelle, PDO::PARAM_STR);
         $requetePrepare->bindParam(':montant', $montant, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->bindParam(':id', $id, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
