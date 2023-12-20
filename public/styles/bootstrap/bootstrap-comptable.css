@@ -8,23 +8,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 a{
-    color: orange;
+    color: #ff8507;
 }
 a:hover, a:focus {
     color: #d9534f;
 }
 .panel-primary > .panel-heading {
   color: #fff;
-  background-color: #df6900;
-  border-color: #df6900;
+  background-color: #ff8507;
+  border-color: #ff8507;
 }
 
 .panel.panel-primary {
-    border-color: #df6900;
+    border-color: #ff8507;
 }
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   color: #fff;
-  background-color: #df6900;
+  background-color: #ff8507;
 }
 
 .col-xs-12.col-md-12 > .btn.btn-primary.btn-lg {
@@ -33,14 +33,39 @@ a:hover, a:focus {
 }
 
 .col-xs-12.col-md-12:hover > .btn.btn-primary.btn-lg:hover{
-    background-color: #df6900;
-    border-color: #df6900;
+    background-color: #ff8507;
+    border-color: #ff8507;
 }
 
 .panel.panel-info {
-    background-color: orange;
+    background-color: white;
 }
 
-th{
-        background-color: white;
-    }
+.panel-info > .panel-heading {
+    color: white;
+    background-color: #ff8507;
+    border-color: #ff8507;
+}
+
+.panel-info {
+    border-color: #ff8507;
+}
+
+table{
+    border-color:orange;
+}
+
+.alert-info{
+    background-color: #6868686e;
+    color: white;
+    border-color: #68686800;
+    width: 120px;
+    margin: auto;
+}
+
+.alert-info-deco{
+    background-color: #d9edf7;
+    color: #31708f;
+    border-color: #bce8f1;
+    
+}

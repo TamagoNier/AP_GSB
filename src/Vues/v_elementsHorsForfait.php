@@ -28,7 +28,7 @@
                                 <input type="hidden" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][id]" value="<?php echo $unFraisHorsForfait['id'] ?>">
                                 <button class="btn btn-success" type="submit">Corriger</button>
                                 <button class="btn btn-danger" type="reset">Réinitialiser</button>
-                            </td>
+                                <button class="btn btn-warning" type="submit">Refuser</button>                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>  
