@@ -90,3 +90,7 @@ h1{
         .transparent-button:hover span {
             transform: translateY(-100%);
         }
+
+        .refuse {
+            background-color: coral; 
+        }

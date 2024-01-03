@@ -50,6 +50,7 @@ switch ($action) {
         break;
     case 'majHorsFraisForfait':
         $fraisHF = filter_input(INPUT_POST, 'lesFraisHF', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+
         //var_dump($fraisHF);
         if (isset($fraisHF) && is_array($fraisHF)) {
             foreach ($fraisHF as $id => $data) {
@@ -78,8 +79,15 @@ switch ($action) {
             include PATH_VIEWS . 'v_erreurs.php';
         }
         break;
-    
+
     case 'refuser' :
-        echo 'ça marche mon poto de la street';
+        $idFraisHF = filter_input(INPUT_GET, 'idFraisHF', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        try {
+            $pdo->ligneFraisHorsForfaitRefuse($idFraisHF);
+            include PATH_VIEWS . 'v_transactionReussie.php';
+        } catch (Exception $ex) {
+            Utilitaires::ajouterErreur('Erreur sur le refus');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
         break;
 }

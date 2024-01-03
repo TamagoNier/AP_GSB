@@ -613,15 +613,13 @@ class PdoGsb {
      * @param type $idVisiteur
      * @param type $mois
      */
-    public function ligneFraisHorsForfaitRefuse($idVisiteur, $mois) {
+    public function ligneFraisHorsForfaitRefuse($id) {
         $requetePrepare = $this->connexion->prepare(
-                'UPDATE lignehorsforfait '
+                'UPDATE lignefraishorsforfait '
                 . 'SET refuse = True '
-                . 'WHERE idvisiteur = :idVisiteur AND '
-                . 'mois = :mois'
+                . 'WHERE id = :id'
         );
-        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':id', $id, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
 

@@ -13,25 +13,46 @@
                     </tr>
                 </thead>  
                 <tbody>
-                    <?php foreach ($lesFraisHorsForfait as $unFraisHorsForfait) { ?>
-                        <tr>
-                            <td>
-                                <input type="date" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][date]" size="10" value="<?php echo Outils\Utilitaires::dateFrancaisVersAnglais($unFraisHorsForfait['date']) ?>" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][libelle]" size="10" value="<?php echo htmlspecialchars($unFraisHorsForfait['libelle']) ?>" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][montant]" size="10" value="<?php echo $unFraisHorsForfait['montant'] ?>" class="form-control">
-                            </td>
-                            <td>
-                                <input type="hidden" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][id]" value="<?php echo $unFraisHorsForfait['id'] ?>">
-                                <button class="btn btn-success" type="submit">Corriger</button>
-                                <button class="btn btn-danger" type="reset">Réinitialiser</button>
-                                <button class="btn btn-warning" type="button" onclick="refuser()">Refuser</button>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                    <?php foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
+                        if ($unFraisHorsForfait["refuse"] == True) {
+                            ?>
+                            <tr class='refuse'>
+                                <td>
+                                    <p type="date"><?php echo Outils\Utilitaires::dateFrancaisVersAnglais($unFraisHorsForfait['date']) ?> </p>
+                                </td>
+                                <td>
+                                    <p type="text"> <?php echo htmlspecialchars($unFraisHorsForfait['libelle']) ?></p>
+                                </td>
+                                <td>
+                                    <p type="text"> <?php echo $unFraisHorsForfait['montant'] ?></p>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="fraisHFId" value="<?php echo $unFraisHorsForfait['id'] ?>">
+                                    <button class="btn btn-success" type="button">Corriger</button>
+                                    <button class="btn btn-danger" type="button">Réinitialiser</button>
+                                    <a class="btn btn-warning">Refuser</a>
+                                </td>
+                            </tr>
+    <?php } else { ?>
+                            <tr>
+                                <td>
+                                    <input type="date" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][date]" size="10" value="<?php echo Outils\Utilitaires::dateFrancaisVersAnglais($unFraisHorsForfait['date']) ?>" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][libelle]" size="10" value="<?php echo htmlspecialchars($unFraisHorsForfait['libelle']) ?>" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="lesFraisHF[<?php echo $unFraisHorsForfait['id'] ?>][montant]" size="10" value="<?php echo $unFraisHorsForfait['montant'] ?>" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="hidden" name="fraisHFId" value="<?php echo $unFraisHorsForfait['id'] ?>">
+                                    <button class="btn btn-success" type="submit">Corriger</button>
+                                    <button class="btn btn-danger" type="reset">Réinitialiser</button>
+                                    <a class="btn btn-warning" href="index.php?uc=validerfrais&action=refuser&idFraisHF=<?php echo $unFraisHorsForfait['id'] ?>">Refuser</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+<?php } ?>
                 </tbody>  
             </table>
         </form>
@@ -52,12 +73,5 @@
         <button class="btn btn-danger" type="reset">Réinitialiser</button>
     </form>
 </div>
-<script>
-    function refuser() {
-        // Set the form action URL for the "refuser" case
-        document.getElementById('validationForm').action = 'index.php?uc=validerfrais&action=refuser';
-        // Submit the form
-        document.getElementById('validationForm').submit();
-    }
-</script>
+
 

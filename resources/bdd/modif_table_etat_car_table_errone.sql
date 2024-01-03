@@ -1,3 +1,4 @@
+use gsb_frais;
 select * from etat;
 
 insert into etat(id, libelle)
