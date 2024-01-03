@@ -28,6 +28,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+        <?php 
+        if($estConnecte) {
+            $isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
+            if ($isComptable){
+        ?>
+        <link href="./styles/bootstrap/bootstrap-comptable.css" rel="stylesheet" type="text/css"/>
+        <?php }} ?>
     </head>
     <body>
         <div class="container">
@@ -52,6 +59,14 @@
                                     Accueil
                                 </a>
                             </li>
+                            <?php 
+                            
+                            $isComptable = $pdo->estComptable($_SESSION['idVisiteur']);
+                            if (!$isComptable){
+                                
+                            
+                            ?>
+                            
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=gererFrais&action=saisirFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -64,6 +79,24 @@
                                     Afficher mes fiches de frais
                                 </a>
                             </li>
+                            <?php } else {
+                            ?>
+                             
+                             <li <?php if ($uc == 'validerfrais') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=validerfrais&action=validerfrais" class="comptable">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Valider les fiches de frais
+                                </a>
+                            </li>
+                            <li
+                                 
+                                 <?php if ($uc == 'suivipaiement') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=suivipaiement&action=suivipaiement" class="comptable">
+                                    <span class="glyphicon glyphicon-euro"></span> 
+                                    Suivre le paiement des fiches de frais
+                                </a>
+                            </li>
+                            <?php } ?>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=deconnexion&action=demandeDeconnexion">

@@ -16,13 +16,21 @@
  */
 
 ?>
+<?php if(!$isComptable) { ?>
 <div class="alert alert-warning" role="alert"><strong>Rappel : </strong>Vos frais sont à déclarer au plus tard le dernier jour du mois 
-	et vos factures acquittées doivent être arrivées aux services comptables au plus tard le 10 du mois suivant la saisie.
+	et vos factures acquittées doivent être arrivées aux services comptables au plus tard le 10 du mois suivant la saisie.</div>
 	Les éléments reçus après le 10 seront reportés sur le mois suivant.
-</div>
+ <?php }else { ?>
+        <?php } ?>
+
 <div id="accueil">
     <h2>
-        Gestion des frais<small> - Visiteur : 
+        Gestion des frais
+        <?php if (!$isComptable){ ?> 
+            <small> - Visiteur :
+        <?php } else { ?>  
+            <small> - Comptable :
+        <?php } ?>
             <?= $_SESSION['prenom'] . ' ' . $_SESSION['nom'] ?></small>
     </h2>
 </div>
@@ -38,6 +46,17 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
+                        <?php if($isComptable) { ?>
+                        <a href="index.php?uc=validerfrais&action=validerfrais"
+                           class="btn btn-success btn-lg" role="button">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <br>Valider les fiches de frais</a>
+                        <a href="index.php?uc=suivipaiement&action=suivipaiement"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-euro"></span>
+                            <br>Suivre le paiment des fiches de frais</a>
+                       
+                        <?php }else { ?>
                         <a href="index.php?uc=gererFrais&action=saisirFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
@@ -46,6 +65,7 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

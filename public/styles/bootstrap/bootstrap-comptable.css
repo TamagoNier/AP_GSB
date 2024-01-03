@@ -1,0 +1,71 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 12 oct. 2023, 11:34:03
+    Author     : bilel.touati
+*/
+
+a{
+    color: #ff8507;
+}
+a:hover, a:focus {
+    color: #d9534f;
+}
+.panel-primary > .panel-heading {
+  color: #fff;
+  background-color: #ff8507;
+  border-color: #ff8507;
+}
+
+.panel.panel-primary {
+    border-color: #ff8507;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  color: #fff;
+  background-color: #ff8507;
+}
+
+.col-xs-12.col-md-12 > .btn.btn-primary.btn-lg {
+    background-color: #f39d44;
+    border-color: #f39d44;
+}
+
+.col-xs-12.col-md-12:hover > .btn.btn-primary.btn-lg:hover{
+    background-color: #ff8507;
+    border-color: #ff8507;
+}
+
+.panel.panel-info {
+    background-color: white;
+}
+
+.panel-info > .panel-heading {
+    color: white;
+    background-color: #ff8507;
+    border-color: #ff8507;
+}
+
+.panel-info {
+    border-color: #ff8507;
+}
+
+table{
+    border-color:orange;
+}
+
+.alert-info{
+    background-color: #6868686e;
+    color: white;
+    border-color: #68686800;
+    width: 120px;
+    margin: auto;
+}
+
+.alert-info-deco{
+    background-color: #d9edf7;
+    color: #31708f;
+    border-color: #bce8f1;
+    
+}

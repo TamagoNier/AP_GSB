@@ -32,3 +32,61 @@ footer .container p {
 code {
   font-size: 80%;
 }
+
+.comptable {
+    color : #ff8507;
+}
+
+.comptable :hover{
+    background: #ff8507;
+}
+
+.choix {
+    width: 175px;
+    display: inline-block;
+}
+
+.elementforfait{
+    width: 144px;
+    margin-bottom: 17px;
+}
+
+.btn-success2{
+    margin-top: 10px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    margin-bottom: 5px;
+}
+
+.btn-success2:hover, .btn-success2:focus{
+    color: white;
+}
+
+h1{
+    color: #ff8507;
+}
+
+.transparent-button {
+            background-color: transparent;
+            border: none;
+            padding: 10px 20px; /* Ajuster selon les besoins */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* Définir le style du texte à l'intérieur du bouton */
+        .transparent-button span {
+            color: #ffffff; /* Couleur du texte */
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Ajouter un effet de survol pour le texte */
+        .transparent-button:hover span {
+            transform: translateY(-100%);
+        }

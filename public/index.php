@@ -36,6 +36,8 @@ if ($uc && !$estConnecte) {
     $uc = 'accueil';
 }
 
+
+
 switch ($uc) {
     case 'connexion':
         include PATH_CTRLS . 'c_connexion.php';
@@ -49,9 +51,17 @@ switch ($uc) {
     case 'etatFrais':
         include PATH_CTRLS . 'c_etatFrais.php';
         break;
+    case 'suivipaiement':
+        include PATH_CTRLS . 'c_suivipaiement.php';
+        break;
+    case 'validerfrais':
+        include PATH_CTRLS . 'c_validerfrais.php';
+        break;
+    
     case 'deconnexion':
         include PATH_CTRLS . 'c_deconnexion.php';
         break;
+    
     default:
         Utilitaires::ajouterErreur('Page non trouvée, veuillez vérifier votre lien...');
         include PATH_VIEWS . 'v_erreurs.php';
