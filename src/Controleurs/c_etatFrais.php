@@ -43,5 +43,9 @@ switch ($action) {
         $montantValide = $lesInfosFicheFrais['montantValide'];
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif = Utilitaires::dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-        include PATH_VIEWS . 'v_etatFrais.php';
+        include PATH_VIEWS.'v_etatFrais.php';
+        break;
+    case 'downloadPdf' :
+        
+        break;
 }

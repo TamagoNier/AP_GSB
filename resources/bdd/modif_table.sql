@@ -1,6 +1,5 @@
 use gsb_frais;
 
-commit;
 
 alter table visiteur
 add iscomptable boolean default false not null;
@@ -20,3 +19,15 @@ GRANT select, insert, update, delete ON gsb_frais.* TO 'userGsb'@'localhost';
 CREATE USER IF NOT EXISTS 'userGsb'@'localhost' IDENTIFIED BY 'secret';
 GRANT SHOW DATABASES ON *.* TO 'userGsb'@'localhost';
 GRANT ALL PRIVILEGES ON `gsb_frais`.* TO userGsb@localhost;
+
+insert into etat(id, libelle)
+values('MP', 'Mise en paiement');
+
+Update etat 
+set libelle = 'Validée'
+where id='VA';
+
+alter table lignefraishorsforfait
+add refuse bool default false;
+
+commit;

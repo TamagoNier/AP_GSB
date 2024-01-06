@@ -75,3 +75,6 @@
         ?>
     </table>
 </div>
+<a href="index.php?uc=etatFrais&action=downloadPdf">
+    Telecharger sous PDF
+</a>
