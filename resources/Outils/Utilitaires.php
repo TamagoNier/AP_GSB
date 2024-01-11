@@ -274,7 +274,6 @@ abstract class Utilitaires {
         // Exemple d'ajout de frais hors forfait au PDF
         $pdf->Cell(0, 10, 'Frais Hors Forfait:', 'B', 1, 'L');
         foreach ($dataPdf['fraisHF'] as $fraisHF) {
-            echo 'zizi';
             $pdf->MultiCell(0, 10, 'Libelle: ' . htmlspecialchars($fraisHF['libelle']) . ', Libelle: ' . $fraisHF['date'], 0, 1 . ', Montant: ' . $fraisHF['montant'], 0, 1);
         }
         ob_end_clean();
