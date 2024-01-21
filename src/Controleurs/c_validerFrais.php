@@ -18,7 +18,7 @@ use Outils\Utilitaires;
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $lesVisiteurs = $pdo->getVisiteurs();
-require PATH_VIEWS . 'v_validerFrais.php';
+require PATH_VIEWS.'v_validerFrais.php';
 switch ($action) {
     case 'afficheFrais':
         $_SESSION['leMois'] = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -51,7 +51,6 @@ switch ($action) {
     case 'majHorsFraisForfait':
         $fraisHF = filter_input(INPUT_POST, 'lesFraisHF', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
 
-        //var_dump($fraisHF);
         if (isset($fraisHF) && is_array($fraisHF)) {
             foreach ($fraisHF as $id => $data) {
                 $date = $data['date'];
@@ -80,6 +79,29 @@ switch ($action) {
         }
         break;
 
+    case 'valider' : 
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+        $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+        $montantKm = $pdo->getMontantKilometre($_SESSION['leVisiteurId']);
+        $montantTotal = 0;
+        foreach($lesFraisForfait as $fraisForfait){
+            if($fraisForfait['idfrais'] == 'KM'){
+                $montantTotal += $montantKm * $fraisForfait['quantite'];
+            }else{
+                $montantTotal += $fraisForfait['montant'] * $fraisForfait['quantite'];
+            }
+        }
+        foreach($lesFraisHorsForfait as $fraisHF){
+            $montantTotal += $fraisHF['montant'];
+        }
+        try{
+        $pdo->valideFicheFrais($_SESSION['leVisiteurId'], $_SESSION['leMois'], $montantTotal);
+        }catch(Exception $ex){
+            Utilitaires::ajouterErreur('Erreur sur la validation');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
+        include PATH_VIEWS . 'v_transactionReussie.php';
+        break;
     case 'refuser' :
         $idFraisHF = filter_input(INPUT_GET, 'idFraisHF', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         try {

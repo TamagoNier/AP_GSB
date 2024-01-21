@@ -69,8 +69,14 @@
                    value="<?php echo $nbJustificatifs ?>" 
                    class="form-control">
         </div>
-        <button class="btn btn-success" type="submit">Valider</button>
+        <button class="btn btn-success" type="submit">Corriger</button>
         <button class="btn btn-danger" type="reset">Réinitialiser</button>
+    </form>
+    <br>
+    <form method="post" 
+          action="index.php?uc=validerfrais&action=valider" 
+          role="form">
+        <button class="btn btn-success" type="submit">Valider la Fiche</button>
     </form>
 </div>
 

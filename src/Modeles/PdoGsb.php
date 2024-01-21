@@ -186,6 +186,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT fraisforfait.id as idfrais, '
                 . 'fraisforfait.libelle as libelle, '
+                . 'fraisforfait.montant as montant, '
                 . 'lignefraisforfait.quantite as quantite '
                 . 'FROM lignefraisforfait '
                 . 'INNER JOIN fraisforfait '
@@ -514,12 +515,14 @@ class PdoGsb {
      * Retourne la liste des fiches frais a valider
      * @return uun tableau assossiatif des fiches de frais à valider
      */
-    public function getFichesFraisAValider(): array|bool {
+    public function getFichesFraisAMP(): array|bool {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT fichefrais.idvisiteur AS idvisiteur, fichefrais.mois AS mois, '
                 . 'fichefrais.nbjustificatifs AS nbjusti, '
                 . 'fichefrais.montantvalide AS montantvalide, '
-                . 'fichefrais.datemodif AS datemodif FROM fichefrais'
+                . 'fichefrais.datemodif AS datemodif '
+                . 'FROM fichefrais '
+                . 'WHERE idetat = "VA"'
         );
         $requetePrepare->execute();
         $lesFiches = array();
@@ -688,5 +691,47 @@ class PdoGsb {
         $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $response = $requetePrepare->fetch();
+    }
+    
+    /**
+     * Donne le montant Kilometrique en fonction du type de vehicule du 
+     * visiteur
+     * 
+     * @param type $idVisiteur
+     * @return type
+     */
+    public function getMontantKilometre($idVisiteur) {
+        $requetePrepare = $this->connexion->prepare(
+                'SELECT typeVehicule.tarifKm'
+                . ' FROM typeVehicule'
+                . ' INNER JOIN visiteur ON visiteur.idTypeVehicule = typeVehicule.id'
+                . ' WHERE visiteur.id = :idVisiteur'
+        );
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $response = $requetePrepare->fetch();
+        return $response[0];
+    }
+    
+    /**
+     * Passe la fiche frais à l'etat de validée.
+     * 
+     * @param type $idVisiteur
+     * @param type $mois
+     * @param type $montant
+     */
+    public function valideFicheFrais($idVisiteur, $mois, $montant) {
+        $requetePrepare = $this->connexion->prepare(
+                'UPDATE ficheFrais '
+                . 'SET montantvalide = :montant, '
+                . 'datemodif = now(), '
+                . 'idetat = "VA" '
+                . 'WHERE idVisiteur = :idVisiteur AND '
+                . 'mois = :mois'
+        );
+        $requetePrepare->bindParam(':montant', $montant, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
     }
 }

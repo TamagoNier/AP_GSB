@@ -11,9 +11,9 @@
             <th>Mettre en paiement</th>
         </tr>
         <tr>
+            <th><?php echo $montantFF?>€</th>
+            <th><?php echo $montantHF?>€</th>
             <th><?php echo $montantValide?>€</th>
-            <th><?php echo $montantHorsForfait?>€</th>
-            <th><?php echo $total?>€</th>
             <th>
                 <form action="index.php?uc=suivipaiement&action=miseEnPaiement" method="post" role="form">  
                     <!-- données envoyées cachées -->

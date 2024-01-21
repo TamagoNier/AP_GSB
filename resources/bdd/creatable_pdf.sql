@@ -4,8 +4,9 @@ CREATE TABLE generPDF
     mois CHAR(6),
     idvisiteur CHAR(5),
     nomPDF CHAR(20),
-    dateGeneration DATETIME,
     FOREIGN KEY (idvisiteur) REFERENCES visiteur(id)
 );
+
+select * from generpdf;
 
 Drop table generPDF;

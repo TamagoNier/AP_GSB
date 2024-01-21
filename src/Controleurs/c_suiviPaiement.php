@@ -22,13 +22,13 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
     case 'suivipaiement': //Affiche le tableau permettant de choisir le visiteur et le mois de la fiche frais 
         $lesVisiteurs = $pdo->getVisiteurs();
-        $fichesFraisAValider = $pdo->getFichesFraisAValider();
+        $fichesFraisAValider = $pdo->getFichesFraisAMP();
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
         break;
 
     case 'afficheTableauFrais':
         $lesVisiteurs = $pdo->getVisiteurs();
-        $fichesFraisAValider = $pdo->getFichesFraisAValider();
+        $fichesFraisAValider = $pdo->getFichesFraisAMP();
         include PATH_VIEWS . 'v_filtreVisiteurMois.php';
 
         $leMois = filter_input(INPUT_POST, 'leMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -59,9 +59,10 @@ switch ($action) {
         } elseif ($leMois != 'none' && $leVisiteurId != 'none') { //Affiche la fiche frais d'un visiteur donné à un mois donné
             $nomVisiteur = $pdo->getNomVisiteur($leVisiteurId);
             $date = substr($leMois, 0, 4) . '/' . substr($leMois, 4, 2);
+            
             $montantValide = $pdo->getMontantValide($leVisiteurId, $leMois);
-            $montantHorsForfait = $pdo->getSommeMontantFraisHorsForfait($leVisiteurId, $leMois);
-            $total = $montantHorsForfait + $montantValide;
+            $montantHF = $pdo->getSommeMontantFraisHorsForfait($leVisiteurId, $leMois);
+            $montantFF = $montantValide-$montantHF;
             if (!is_null($montantValide)) {
                 include PATH_VIEWS . 'v_tabloFichesFraisVA.php';
             }
