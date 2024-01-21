@@ -281,4 +281,21 @@ abstract class Utilitaires {
         $namePDF = $dataPdf['idVisiteur'] . '_' . $dataPdf['mois'].'.pdf';
         $pdf->Output($namePDF, 'D');
     }
+    
+    public static function moisSuivant($mois){
+        $partieAn = substr($mois, 0, 4);
+        $partieMois = substr($mois,-2,2);
+        $nextMois = intval($partieMois) + 1;
+        if($nextMois < 10){
+            return $partieAn.'0'.strval($nextMois); 
+        }else{
+            if($nextMois == 13){
+                $nextAn = substr($partieAn, -1,1);
+                $nextAn = intval($nextAn) + 1;
+                return '202'. strval($nextAn).'01'; 
+            }else{
+                return $partieAn . strval($nextMois); 
+            }
+        }
+    }
 }

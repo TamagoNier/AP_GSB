@@ -27,16 +27,20 @@ switch ($action) {
         if ($_SESSION['leMois'] == 'none' || $_SESSION['leVisiteurId'] == 'none') {
             include PATH_VIEWS . 'v_validerFraisErreur.php';
             break;
-        } elseif ($pdo->estPremierFraisMois($_SESSION['leVisiteurId'], $_SESSION['leMois'])) {
-            $pdo->creeNouvellesLignesFrais($_SESSION['leVisiteurId'], $_SESSION['leMois']);
         }
-
-        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
-        $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
-        $nbJustificatifs = $pdo->getNbjustificatifs($_SESSION['leVisiteurId'], $_SESSION['leMois']);
-
-        include PATH_VIEWS . 'v_elementsForfait.php';
-        include PATH_VIEWS . 'v_elementsHorsForfait.php';
+        $infoFicheFrais = $pdo->getLesInfosFicheFrais($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+        if($infoFicheFrais['idEtat'] != 'CL'){
+            include PATH_VIEWS . 'v_pasDeFiche.php';
+        }
+        else{
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+            $lesFraisForfait = $pdo->getLesFraisForfait($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+            $nbJustificatifs = $pdo->getNbjustificatifs($_SESSION['leVisiteurId'], $_SESSION['leMois']);
+            include PATH_VIEWS . 'v_elementsForfait.php';
+            include PATH_VIEWS . 'v_elementsHorsForfait.php';
+        }
+        
+        
         break;
     case 'majFraisForfait' :
         $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
@@ -109,6 +113,29 @@ switch ($action) {
             include PATH_VIEWS . 'v_transactionReussie.php';
         } catch (Exception $ex) {
             Utilitaires::ajouterErreur('Erreur sur le refus');
+            include PATH_VIEWS . 'v_erreurs.php';
+        }
+        break;
+    
+    case 'reporter':
+        $idFraisHF = filter_input(INPUT_GET, 'idFraisHF', FILTER_DEFAULT, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prochainMois = Utilitaires::moisSuivant($_SESSION['leMois']);
+        $ficheFrais = $pdo->ficheFraisExiste($_SESSION['leVisiteurId'], $prochainMois);
+        try{
+        if($ficheFrais[0] == 0){
+            $pdo->creeNouvellesLignesFrais($_SESSION['leVisiteurId'], $prochainMois);
+            $infosFraisHF = $pdo->recupInfoLigneFraisHF($idFraisHF);
+            var_dump($infosFraisHF);
+            $pdo->creeNouveauFraisHorsForfait($_SESSION['leVisiteurId'], $prochainMois, $infosFraisHF[0], $infosFraisHF[1], $infosFraisHF[2]);
+            $pdo->supprimerFraisHorsForfait($idFraisHF);
+        }else{
+            $infosFraisHF = $pdo->recupInfoLigneFraisHF($idFraisHF);
+            $pdo->creeNouveauFraisHorsForfait($_SESSION['leVisiteurId'], $prochainMois, $infosFraisHF[0], $infosFraisHF[1], $infosFraisHF[2]);
+            $pdo->supprimerFraisHorsForfait($idFraisHF);
+        }
+        include PATH_VIEWS . 'v_transactionReussie.php';
+        }catch (Exception $ex) {
+            Utilitaires::ajouterErreur($ex);
             include PATH_VIEWS . 'v_erreurs.php';
         }
         break;

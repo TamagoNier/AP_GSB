@@ -49,6 +49,7 @@
                                     <button class="btn btn-success" type="submit">Corriger</button>
                                     <button class="btn btn-danger" type="reset">Réinitialiser</button>
                                     <a class="btn btn-warning" href="index.php?uc=validerfrais&action=refuser&idFraisHF=<?php echo $unFraisHorsForfait['id'] ?>">Refuser</a>
+                                    <a class="btn btn-warning" href="index.php?uc=validerfrais&action=reporter&idFraisHF=<?php echo $unFraisHorsForfait['id'] ?>">Reporter</a>
                                 </td>
                             </tr>
                         <?php } ?>

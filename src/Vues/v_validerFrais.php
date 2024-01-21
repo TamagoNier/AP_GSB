@@ -51,7 +51,7 @@
                 <select id="leMois" name="leMois" class="form-control">
                     <option value="none">Choisir...</option>
                         <?php
-                    $lesMois = $pdo->getLesMoisDisponibles($id);
+                    $lesMois = $pdo->getTousLesMois();
                     foreach ($lesMois as $unMois) {
                         $mois = $unMois['mois'];
                         $numAnnee = $unMois['numAnnee'];
