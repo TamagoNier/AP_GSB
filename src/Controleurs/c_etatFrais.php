@@ -41,6 +41,7 @@ switch ($action) {
         $libEtat = $lesInfosFicheFrais['libEtat'];
         $montantValide = $lesInfosFicheFrais['montantValide'];
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+        $etat = $lesInfosFicheFrais['idEtat'];
         $dateModif = Utilitaires::dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
 
         $existeDeja = $pdo->verifPDF($idVisiteur, $leMois);

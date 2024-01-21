@@ -83,7 +83,9 @@
 
 <script>
 function verifierExisteDeja() {
-    <?php if ($existeDeja[0] >= 1): ?>
+    <?php if($etat != 'VA'): ?>
+        alert("Fiche Pas Encore Validée");
+    <?php elseif ($existeDeja[0] >= 1): ?>
         alert("PDF déjà généré");
     <?php else: ?>
         document.getElementById("download").submit();
