@@ -670,6 +670,13 @@ class PdoGsb {
         $requetePrepare->execute();
     }
     
+    /**
+     * Verifie si un pdf a deja été generée
+     * 
+     * @param type $idVisiteur
+     * @param type $mois
+     * @return type
+     */
     public function verifPDF($idVisiteur, $mois){
         $requetePrepare = $this->connexion->prepare(
                 'SELECT Count(*)'
