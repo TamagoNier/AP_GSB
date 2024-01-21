@@ -650,4 +650,36 @@ class PdoGsb {
         $requetePrepare->bindParam(':id', $id, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Creer un enregistrement dans la table generPDF permettant d'empecher de generer
+     * plusieurs pdf pour le meme mois
+     * 
+     * @param type $mois
+     * @param type $idVisiteur
+     * @param type $name
+     */
+    public function createEnregistrementPDF($idVisiteur, $mois, $namePDF) {
+        $requetePrepare = $this->connexion->prepare(
+                'INSERT INTO generPDF(mois, idvisiteur, nomPDF) '
+                . 'VALUES (:unMois,:unIdVisiteur, :namePDF)'
+                );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':namePDF', $namePDF, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    public function verifPDF($idVisiteur, $mois){
+        $requetePrepare = $this->connexion->prepare(
+                'SELECT Count(*)'
+                . 'FROM generPDF'
+                . ' Where idvisiteur = :idVisiteur'
+                . ' AND mois = :unMois'
+        );
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $response = $requetePrepare->fetch();
+    }
 }

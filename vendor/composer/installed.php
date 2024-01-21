@@ -3,7 +3,7 @@
         'name' => 'gsb/applifrais',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c40b02435e5621640369bee98e0359d4b6ea271a',
+        'reference' => '47d6b854e7a43c2f65dbbb1df52e26950ab6fae1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'gsb/applifrais' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c40b02435e5621640369bee98e0359d4b6ea271a',
+            'reference' => '47d6b854e7a43c2f65dbbb1df52e26950ab6fae1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

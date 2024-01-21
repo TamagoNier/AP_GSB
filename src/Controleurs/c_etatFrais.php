@@ -42,36 +42,36 @@ switch ($action) {
         $montantValide = $lesInfosFicheFrais['montantValide'];
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif = Utilitaires::dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+
+        $existeDeja = $pdo->verifPDF($idVisiteur, $leMois);
         include PATH_VIEWS . 'v_etatFrais.php';
         break;
     case 'downloadPdf' :
-        try {
-            $leMois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $nom = $_SESSION['nom'];
-            $prenom = $_SESSION['prenom'];
+        $_SESSION['pdfExiste'] = True;
+        $leMois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nom = $_SESSION['nom'];
+        $prenom = $_SESSION['prenom'];
 
-            $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+        $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
 
-            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
-            $montantValide = $lesInfosFicheFrais['montantValide'];
-            
-            $dataPdf = [
-                'nom' => $nom,
-                'prenom' => $prenom,
-                'numAnnee' => substr($leMois, 0, 4),
-                'numMois' => substr($leMois, 4, 2),
-                'fraisForfait' => $lesFraisForfait,
-                'fraisHF' => $lesFraisHorsForfait,
-                'montantValide' => $montantValide
-            ];
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+        $montantValide = $lesInfosFicheFrais['montantValide'];
 
-            Utilitaires::generationPDF($dataPdf);
-        } catch (Exception $ex) {
-            Utilitaires::ajouterErreur($ex);
-            include PATH_VIEWS . 'v_erreurs.php';
-        }
+        $dataPdf = [
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'numAnnee' => substr($leMois, 0, 4),
+            'numMois' => substr($leMois, 4, 2),
+            'fraisForfait' => $lesFraisForfait,
+            'fraisHF' => $lesFraisHorsForfait,
+            'montantValide' => $montantValide,
+            'mois' => $leMois,
+            'idVisiteur' => $idVisiteur
+        ];
 
-
+        Utilitaires::generationPDF($dataPdf);
+        $namePDF = $idVisiteur . '_' . $leMois . '.pdf';
+        $pdo->createEnregistrementPDF($idVisiteur, $leMois, $namePDF);
         break;
 }

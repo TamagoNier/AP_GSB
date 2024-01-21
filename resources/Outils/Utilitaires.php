@@ -277,6 +277,8 @@ abstract class Utilitaires {
             $pdf->MultiCell(0, 10, 'Libelle: ' . htmlspecialchars($fraisHF['libelle']) . ', Libelle: ' . $fraisHF['date'], 0, 1 . ', Montant: ' . $fraisHF['montant'], 0, 1);
         }
         ob_end_clean();
-        $pdf->Output('output.pdf', 'D');
+        
+        $namePDF = $dataPdf['idVisiteur'] . '_' . $dataPdf['mois'].'.pdf';
+        $pdf->Output($namePDF, 'D');
     }
 }

@@ -75,7 +75,19 @@
         ?>
     </table>
 </div>
-<form action="index.php?uc=etatFrais&action=downloadPdf" method="post" role="form">
+
+<form id="download" action="index.php?uc=etatFrais&action=downloadPdf" method="post" role="form">
     <input type="hidden" name="mois" value="<?php echo $numAnnee.$numMois ?>">    
-    <button type="submit">Télécharger en PDF</button>
+    <button type="button" onclick="verifierExisteDeja()">Télécharger en PDF</button>
 </form>
+
+<script>
+function verifierExisteDeja() {
+    <?php if ($existeDeja[0] >= 1): ?>
+        alert("PDF déjà généré");
+    <?php else: ?>
+        document.getElementById("download").submit();
+        console.log(<?php echo $_SESSION['pdfExiste'] ?>)
+    <?php endif; ?>
+}
+</script>

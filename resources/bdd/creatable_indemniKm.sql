@@ -11,9 +11,15 @@ insert into indemniKm(id, vehicule, tarifKm) values
 (3,'Véhicule  4CV Essence', 0.62),
 (4,'Véhicule 5/6CV Essence', 0.67);
 
-/* Maintenant que la table des indemnisation kilométriques est créee il faut 
-l'utiliser en tant que clé etrangere dans frais forfait */
+/* on supprime la ligne km de FraisForfait */
 
-drop table indemnKm;
+ALTER TABLE lignefraisforfait ADD COLUMN vehicule INT Default 3;
+ALTER TABLE lignefraisforfait ADD COLUMN kmParcourus INT Default 326;
+
+ALTER TABLE lignefraisforfait DROP COLUMN vehicule ;
+ALTER TABLE lignefraisforfait DROP COLUMN kmParcourus ;
+
+
+delete from fraisforfait where id='KM';
 
 commit;
