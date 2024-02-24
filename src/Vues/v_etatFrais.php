@@ -89,7 +89,6 @@ function verifierExisteDeja() {
         alert("PDF déjà généré");
     <?php else: ?>
         document.getElementById("download").submit();
-        console.log(<?php echo $_SESSION['pdfExiste'] ?>)
-    <?php endif; ?>
+    <?php endif ?>
 }
 </script>
