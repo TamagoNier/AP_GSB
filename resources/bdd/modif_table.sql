@@ -1,11 +1,11 @@
 use gsb_frais;
 
-alter table visiteur
-add iscomptable boolean default false not null;
-
-update visiteur 
-set iscomptable = true
-where id = 'a118y';
+-- alter table visiteur
+-- add iscomptable boolean default false not null;
+-- 
+-- update visiteur 
+-- set iscomptable = true
+-- where id = 'a118y';
 
 -- CREATE USER 'createurGsb'@'localhost' IDENTIFIED BY 'secret';
 -- GRANT create, references, drop, alter ON *.* TO 'createurGsb'@'localhost';
